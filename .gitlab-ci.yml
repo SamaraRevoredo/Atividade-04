@@ -1,0 +1,19 @@
+stages:
+  - verify
+  - deploy
+
+check_index:
+  stage: verify
+  script:
+    - echo "Verificando se o index.html existe..."
+    - test -f public/index.html || (echo "Erro: public/index.html não encontrado!" && exit 1)
+
+pages:
+  stage: deploy
+  script:
+    - echo "Publicando site no GitLab Pages..."
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
